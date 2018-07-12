@@ -1,0 +1,57 @@
+% !TeX encoding = UTF-8
+% !TeX spellcheck = en_US
+
+\documentclass[13pt,t]{beamer}
+	\usepackage[utf8]{inputenc}
+
+	% Import constants.
+	\input{../common/config.tex}
+	\input{../common/tikz/rules}
+
+	\usepackage{sansmathaccent}
+	\pdfmapfile{+sansmathaccent.map}
+
+	% presentation style
+	\mode<presentation>
+	\usetheme{Madrid}
+	\usecolortheme[named=blue]{structure}
+	\usefonttheme[onlymath]{serif}
+	\useinnertheme{circles}
+	\useoutertheme{infolines}
+	\setbeamertemplate{blocks}[rounded][shadow=true]
+	
+	%remove default navigation in the bottom right corner
+	\beamertemplatenavigationsymbolsempty		
+	
+	% PDF settings
+	\hypersetup{
+		pdftitle = {\Title},
+		pdfsubject = {\ThesisType},
+		pdfauthor = {\Author},
+		pdfkeywords = {\Keywords},
+	}
+
+\begin{document}
+	\title[Graph Transformation with eMoflon::IBeX]{\Title}
+	\subtitle{\ThesisType}
+	\date{09.07.2018}
+	\author{\Author}
+
+	\begin{frame}
+		\titlepage
+
+		\begin{center}
+			\includegraphics[width=100px]{../common/figures/university-logo-en}
+			~ \\
+			Faculty for Computer Science, Electrical Engineering and Mathematics \\
+			Department of Computer Science \\
+			\ResearchGroup
+		\end{center}
+	\end{frame}
+
+% Include sections
+	\input{sections/introduction}
+	\input{sections/research-questions}
+	\input{sections/ibex-gt}
+	\input{sections/evaluation}
+\end{document}

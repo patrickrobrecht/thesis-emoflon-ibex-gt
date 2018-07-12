@@ -1,0 +1,21 @@
+% !TeX encoding = UTF-8
+% !TeX spellcheck = en_US
+
+\pdfbookmark[1]{Abstract}{abstract}
+\begin{abstract}
+	Model transformations are used to transform models into other models.
+	They are fundamental for model-driven engineering (MDE) which raises the abstraction level from programming to domain-specific languages.
+	As models can be suitably represented as graphs, graph transformation (GT) is a frequently used formalism to realize model transformations.
+	The approach is based on a rule set defining which graph patterns can be replaced with other graph structures.
+
+	This thesis presents eMoflon::IBeX-GT, a new interpreter-based graph transformation tool which supports model queries (\ie finding patterns in the graph) as well as rule applications modifying graph structures.
+	An incremental pattern matcher is used to find matches in the host graph.
+	The support for incrementality is important to solve tasks which require permanent observation of all matches efficiently.
+
+	The graph transformation patterns and rules can be invoked from Java code via a typed API generated from the textual specification.
+	Pattern refinement is a modularity concept to reduce duplications in pattern specifications.
+	
+	There are many GT tools, but to the best of the author's knowledge none of them supports incrementality in combination with model queries and rule applications on attributed typed graphs via a typed API.
+
+	This thesis explores which tasks can be solved best via an incremental graph transformation tool and how the tool can be seamlessly integrated into Java code.
+\end{abstract}

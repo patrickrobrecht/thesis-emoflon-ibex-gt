@@ -1,0 +1,24 @@
+\begin{tikzpicture}[defpicture]
+	\node[def1] (L) {$L$};
+	\node[def1, right of = L] (K) {$K$};
+	\node[def1, right of = K] (R) {$R$};
+
+	\node[below of = L] (G) {$G$};
+	\node[right of = G] (D) {$D$};
+	\node[def2, right of = D] (G') {$G'$};
+
+	\node[xshift = 1cm, yshift = -1cm] (s1) {(1)};
+	\node[xshift = 3cm, yshift = -1cm] (s2) {(2)};
+
+	\begin{scope}[every path/.style = arrow]
+		\path[def1-arrow] (K) to node[def1, above] {$l$} (L);
+		\path[def1-arrow] (K) to node[def1, above] {$r$} (R);
+
+		\path (L) to node[left] {$m$} (G);
+		\path (K) to node {$d$} (D);
+		\path (R) to node {$m'$} (G');
+
+		\path (D) to node[below] {$l'$} (G);
+		\path (D) to node[below] {$r'$} (G');
+	\end{scope}
+\end{tikzpicture}

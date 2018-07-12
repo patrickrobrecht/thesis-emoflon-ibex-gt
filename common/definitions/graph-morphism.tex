@@ -1,0 +1,21 @@
+\begin{tikzpicture}[defpicture]
+	\node[def1] (E) {$E$};
+	\node[below of = E] (E') {$E'$};
+	\node[def1, right of = E] (V) {$V$};
+	\node[below of = V] (V') {$V'$};
+	\node[def1, right = 1.5cm of V] (G) {$G = (E, V, src, trg)$};
+	\node[below of = G] (G') {$G' = (E', V', src', trg')$};
+
+	\begin{scope}[every path/.style = arrow]
+		\path[def1-arrow] (E.20) to[bend left] node[def1, above] {src} (V.160);
+		\path[def1-arrow] (E.340) to[bend right] node[def1, below] {trg} (V.200);
+
+		\path[def2-arrow] (E) to node[def2, left] {$f_E$} (E');
+		\path[def2-arrow] (V) to node[def2] {$f_V$} (V');
+
+		\path (E'.20) to[bend left] node[above] {src'} (V'.160);
+		\path (E'.340) to[bend right] node[below] {trg'} (V'.200);
+
+		\path[def2-arrow] (G) to node[def2] {$f = (f_V, f_E)$} (G');
+	\end{scope}
+\end{tikzpicture}

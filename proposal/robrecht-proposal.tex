@@ -1,0 +1,113 @@
+% !TeX encoding = UTF-8
+% !TeX spellcheck = en_US
+\documentclass[a4paper,DIV=12,BCOR=1cm,
+	twoside,toc=listofnumbered,bibliography=totocnumbered,numbers=noenddot]{scrreprt}
+	\usepackage[utf8]{inputenc} % Sonderzeichen
+	\usepackage{fancyhdr} % Kopf-, Fußzeilen
+	\usepackage{graphicx} % Bilder	
+	\usepackage[bookmarksopen,
+				bookmarksopenlevel=0,
+				pdfborder={0 0 0}]{hyperref} % Hyperlinks
+	\usepackage{amsmath} % Mathe, lädt amsmath gleich mit
+	\usepackage{amssymb} % Mathesymbole
+	\usepackage{paralist} % Nummerierungen a) etc. von Umgebungen
+	\usepackage{todonotes}
+
+	% numbering for figures, footnotes and tables not chapter-based
+	\usepackage{chngcntr}
+	\counterwithout{figure}{chapter}
+	\counterwithout{footnote}{chapter}
+	\counterwithout{table}{chapter}
+
+	% gantt diagrams
+	\usepackage{pgfgantt}
+
+	% Import title etc. constants
+	\input{../common/config.tex}
+	
+	\hypersetup{
+		pdftitle = {\Title},
+		pdfsubject = {\ThesisType~Proposal},
+		pdfauthor = {\Author},
+		pdfkeywords = {\Keywords},
+	}
+
+% Title Settings
+	\title{\ThesisType~Proposal: \Title}
+	\author{\Author}
+	\date{\DateOfProposalSubmission}
+
+
+\begin{document}
+	\addtolength{\oddsidemargin}{0.75cm}
+	\begin{titlepage}
+		\begin{center}
+			\begin{minipage}{13.5cm}		
+				\includegraphics[height = 2.4cm]{../common/figures/university-logo-en} \\[3pt]
+				\textsf{
+					\hspace*{2.2cm} Faculty for Computer Science, Electrical Engineering and Mathematics \\
+					\hspace*{2.2cm} Department of Computer Science \\
+					\hspace*{2.2cm} \ResearchGroup \\
+					\hspace*{2.2cm} \Address
+				}
+			\end{minipage}\\[60pt]
+			
+			{\Huge\bfseries
+				Incremental Unidirectional \\
+				Model Transformations \\
+				via Graph Transformation \\[5pt]
+				with eMoflon::IBeX} \\[30pt]
+			
+			{\LARGE \ThesisType~Proposal} \\[30pt]
+			
+			by \\[5pt]
+			
+			{\scshape\large \Author} \\[30pt]
+			
+			submitted to \\[5pt]
+			
+			{\scshape\large \Supervisor} \\[5pt]
+			
+			and \\[5pt]
+			
+			{\scshape\large \SecondExaminer} \\[40pt]
+			
+			{Paderborn, \DateOfProposalSubmission}
+		\end{center}
+	\end{titlepage}
+	\addtolength{\oddsidemargin}{-0.75cm}
+	
+	% header and footer
+	\newcommand{\fancy}{
+		\fancyhf{}
+		\renewcommand{\headrulewidth}{0.0pt}
+		\fancyfoot[C]{}
+		\fancyfoot[LO,RE]{\scriptsize \Author: \Title ~(Proposal)}
+		\fancyfoot[LE,RO]{\small \thepage}
+		\renewcommand{\footrulewidth}{0.5pt}
+	}	
+	\pagestyle{fancy}
+	\fancy
+	\fancypagestyle{plain}{\fancy}
+
+
+	\pdfbookmark[1]{Table of Contents}{toc}
+	\tableofcontents
+
+	\renewcommand{\clearpage}{}
+	\newpage
+
+	\input{chapters/01-introduction}
+	\input{chapters/02-1-requirements}
+	\input{chapters/02-2-related-work}
+	\input{chapters/02-3-contribution}
+	\input{chapters/03-1-goals}
+	\input{chapters/03-3-time-plan}
+	\input{chapters/04-preliminary-structure}
+
+
+% Bibliography
+	\bibliography{../common/literature}
+	\bibliographystyle{alpha}
+	\label{bibliography}	
+\end{document}

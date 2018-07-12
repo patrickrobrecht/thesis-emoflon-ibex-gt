@@ -1,0 +1,135 @@
+% !TeX encoding = UTF-8
+% !TeX spellcheck = en_US
+
+\begin{tikzpicture}
+	\umlsimpleclass[class]
+		{IBeXContext}
+	\umlsimpleclass[class,
+		right = 1.5cm of IBeXContext]
+		{IBeXContextAlternatives}
+	\umlsimpleclass[class,
+		below = 1cm of IBeXContext]
+		{IBeXContextPattern}
+	\umlsimpleclass[class,
+		below = 1.5cm of IBeXContextPattern,
+		xshift = -4cm]
+		{IBeXPatternInvocation}
+	\umlsimpleclass[class,
+		below = 1.5cm of IBeXContextPattern,
+		xshift = 5cm]
+		{IBeXAttributeConstraint}
+	\umlsimpleclass[class,
+		below = 0.75cm of IBeXAttributeConstraint,
+		xshift = 1cm]
+		{IBeXNodePair}
+	\umlsimpleclass[class,
+		below = 1cm of IBeXNodePair]
+		{IBeXNode}
+	\umlsimpleclass[class,
+		below = 2.5cm of IBeXNode]
+		{IBeXEdge}
+
+	% IBeXContextAlternatives
+	\umlinherit[]
+		{IBeXContextAlternatives}
+		{IBeXContext}
+	\umlunicompo[geometry = |-,
+		arg2 = {alternatives},
+		mult2 = 2..*,
+		pos = 1.5,
+		anchor2 = 0]
+		{IBeXContextAlternatives}
+		{IBeXContextPattern}
+
+	% IBeXContextPattern
+	\umlinherit[]
+		{IBeXContextPattern}
+		{IBeXContext}
+	\umlunicompo[geometry = |-|,
+		arg2 = {attributeConstraints},
+		mult2 = 0..*,
+		pos = 2.5,
+		anchor1 = -15.2]
+		{IBeXContextPattern}
+		{IBeXAttributeConstraint}
+	\umlunicompo[geometry = |-,
+		arg2 = {injectivityConstraints},
+		mult2 = 0..*,
+		pos = 1.5,
+		anchor1 = -25]
+		{IBeXContextPattern}
+		{IBeXNodePair}
+	\umlunicompo[geometry = |-,
+		arg2 = {signatureNodes},
+		mult2 = 1..*,
+		pos = 1.6,
+		anchor1 = -55,
+		anchor2 = 165]
+		{IBeXContextPattern}
+		{IBeXNode}
+	\umlunicompo[geometry = |-,
+		arg2 = {localNodes},
+		mult2 = 0..*,
+		pos = 1.4,
+		anchor1 = -125,
+		anchor2 = 195]
+		{IBeXContextPattern}
+		{IBeXNode}
+	\umlunicompo[geometry = |-,
+		arg2 = {localEdges},
+		mult2 = 0..*,
+		pos = 1.4,
+		anchor1 = -155]
+		{IBeXContextPattern}
+		{IBeXEdge}
+	\umlunicompo[geometry = |-|,
+		arg2 = {invocations},
+		mult2 = 0..*,
+		pos = 2.5,
+		anchor1 = -164.8]
+		{IBeXContextPattern}
+		{IBeXPatternInvocation}
+
+	% IBeXNodePair
+	\umluniassoc[arg2 = {values},
+		mult2 = 2,
+		pos2 = 0.5]
+		{IBeXNodePair}
+		{IBeXNode}
+
+	% IBeXEdge -- IBeXNode
+	\umlassoc[arg1 = {outgoingEdges},
+		mult1 = 0..*,
+		pos1 = 0.25,
+		align1 = right,
+		arg2 = {sourceNode},
+		mult2 = 1,
+		pos2 = 0.75,
+		align2 = right,
+		anchor1 = 120,
+		anchor2 = -120]
+		{IBeXEdge}
+		{IBeXNode}
+	\umlassoc[arg1 = {incomingEdges},
+		mult1 = 0..*,
+		pos1 = 0.25,
+		align1 = left,
+		arg2 = {targetNode},
+		mult2 = 1,
+		pos2 = 0.75,
+		align2 = left,
+		anchor1 = 60,
+		anchor2 = -60]
+		{IBeXEdge}
+		{IBeXNode}
+
+	% IBeXPatternInvocation
+		\umluniassoc[geometry = -|-,
+			arg2 = {invokedPattern},
+			mult2 = 1,
+			pos = 2.5,
+			anchor1 = 180,
+			arm1 = 0.5cm]
+		{IBeXPatternInvocation}
+		{IBeXContextPattern}
+\end{tikzpicture}

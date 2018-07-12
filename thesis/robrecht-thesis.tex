@@ -1,0 +1,175 @@
+% !TeX encoding = UTF-8
+% !TeX spellcheck = en_US
+\documentclass[a4paper,
+	DIV=12,
+	BCOR=1cm,
+	twoside,
+	toc=listofnumbered,
+	bibliography=totocnumbered,
+	numbers=noenddot,
+	abstract=on
+	]{scrreprt}
+	\usepackage[utf8]{inputenc} % Sonderzeichen
+	\usepackage{fancyhdr} % Kopf-, Fußzeilen
+	\usepackage{graphicx} % Bilder	
+	\usepackage[bookmarksopen,
+				bookmarksopenlevel=0,
+				pdfborder={0 0 0}]{hyperref} % Hyperlinks
+	\usepackage{amsmath} % Mathe, lädt amsmath gleich mit
+	\usepackage{amssymb} % Mathesymbole
+	\usepackage{paralist} % Nummerierungen a) etc. von Umgebungen
+	\usepackage{todonotes}
+	\usepackage{setspace}
+	\usepackage{float}
+	\usepackage[lofdepth,lotdepth]{subfig}
+
+	\usepackage{thmbox}
+	\newtheorem[style=M, bodystyle={\noindent}]{theorem}{Theorem}
+	\newtheorem[style=M, bodystyle={\noindent}]{definition}[theorem]{Definition}
+
+	\usepackage{etoolbox}
+	\BeforeBeginEnvironment{theorem}{\vskip 0.3cm}
+	\BeforeBeginEnvironment{definition}{\vskip 0.3cm}
+
+	\usepackage{changepage}
+
+	% Import title etc. constants
+	\input{../common/config.tex}
+
+	\hypersetup{
+		pdftitle = {\Title},
+		pdfsubject = {\ThesisType},
+		pdfauthor = {\Author},
+		pdfkeywords = {\Keywords},
+	}
+
+	\setcounter{tocdepth}{10} % all levels into table of contents.
+	\setcounter{secnumdepth}{10} % numbering even for level 4+
+
+% Title Settings
+	\title{Master Thesis: \Title}
+	\author{\Author}
+	\date{\DateOfThesisSubmission}
+
+
+\begin{document}
+	\addtolength{\oddsidemargin}{0.75cm}
+	\begin{titlepage}
+		\begin{center}
+			\begin{minipage}{13.5cm}		
+				\includegraphics[height = 2.4cm]{../common/figures/university-logo-en} \\[3pt]
+				\textsf{
+					\hspace*{2.2cm} Faculty for Computer Science, Electrical Engineering and Mathematics \\
+					\hspace*{2.2cm} Department of Computer Science \\
+					\hspace*{2.2cm} \ResearchGroup \\
+					\hspace*{2.2cm} \Address
+				}
+			\end{minipage}\\[60pt]
+
+			{\Huge\bfseries
+				Incremental Unidirectional \\
+				Model Transformation \\
+				via Graph Transformation \\[5pt]
+				with eMoflon::IBeX} \\[30pt]
+
+			{\LARGE \ThesisType} \\[15pt]
+			in Partial Fulfillment of the Requirements for the\\
+			Degree of \\[15pt]
+			{\Large Master of Science} \\[30pt]
+
+			by \\[5pt]
+
+			{\scshape\large \Author} \\[30pt]
+
+			submitted to \\[5pt]
+
+			{\scshape\large \Supervisor} \\[5pt]
+
+			and \\[5pt]
+
+			{\scshape\large \SecondExaminer} \\[40pt]
+
+			{Paderborn, \DateOfThesisSubmission}
+		\end{center}
+	\end{titlepage}
+	\addtolength{\oddsidemargin}{-0.75cm}
+
+	% header and footer
+	\newcommand{\fancy}{
+		\fancyhf{}
+		\renewcommand{\headrulewidth}{0.0pt}
+		\fancyfoot[C]{}
+		\fancyfoot[LO,RE]{\scriptsize \Title}
+		\fancyfoot[LE,RO]{\small \thepage}
+		\renewcommand{\footrulewidth}{0.5pt}
+	}
+	\pagestyle{fancy}
+	\fancy
+	\fancypagestyle{plain}{\fancy}
+
+
+\newpage
+	\thispagestyle{empty}
+	~\ \\[430pt]
+
+	\textcopyright~2018 \Author
+	\ \\
+
+	Master's Thesis by \Author
+
+	Course of studies: Computer Science
+	\ \\
+
+	Supervisor: \Supervisor
+	\ \\
+
+	First examiner: \Supervisor
+
+	Second examiner: \SecondExaminer
+	\ \\
+
+	Date of submission: \DateOfThesisSubmission
+
+
+	\input{abstract}
+
+
+	\pdfbookmark[1]{Table of Contents}{toc}
+	\tableofcontents
+
+
+	\chapter*{Declaration of Authorship}
+		I hereby declare that I prepared this thesis entirely on my own and have not used outside sources without declaration in the text.
+		Any concepts or quotations applicable to these sources are clearly attributed to them.
+		This thesis has not been submitted in the same or substantially similar version, not even in part, to any other authority for grading and has not been published elsewhere.\\[27pt]
+
+		Paderborn, \DateOfThesisSubmission \\[20pt]
+
+		\Author
+
+	\newpage
+
+	\input{chapters/introduction}
+	\input{chapters/fundamentals}
+	\input{chapters/requirements}
+	\input{chapters/related-work}
+	\input{chapters/patterns}
+	\input{chapters/graph-transformation-api}
+	\input{chapters/evaluation}
+	\input{chapters/conclusion-and-future-work}
+
+
+% Appendix
+	\appendix
+
+% Lists
+	\input{appendix/list-of-projects}
+	\listoffigures
+	\listoftables
+	\lstlistoflistings
+
+% Bibliography
+	\bibliography{../common/literature}
+	\bibliographystyle{alpha}
+	\label{bibliography}	
+\end{document}

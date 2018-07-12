@@ -1,0 +1,20 @@
+\begin{tikzpicture}[defpicture]
+	\node (L) {$L$};
+	\node[right of = L] (R) {$R$};
+	\node[below of = L] (G) {$G$};
+	\node[def2, right of = G] (G') {$G'$};
+	\node[right of = G', yshift = -2cm] (G'') {$G''$};
+
+	\begin{scope}[every path/.style = arrow]
+		\path[def1-arrow] (L) to node[def1] {$r$} (R);
+		\path[def1-arrow] (L) to node[def1, left] {$m$} (G);
+		\path[def2-arrow] (R) to node[def2] {$m'$} (G');
+		\path[def2-arrow] (G) to node[def2, below] {$r'$} (G');
+	\end{scope}
+
+	\begin{scope}[every path/.style = arrow, dashed]
+		\path (R) to[bend left] node {$m''$} (G'');
+		\path (G) to[bend right] node {$r''$} (G'');
+		\path (G') to node {$x$} (G'');
+	\end{scope}
+\end{tikzpicture}

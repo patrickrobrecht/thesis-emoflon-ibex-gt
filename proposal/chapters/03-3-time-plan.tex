@@ -1,0 +1,40 @@
+% !TeX spellcheck = en_US
+\section{Time Plan}
+\label{time-plan}
+Figure \ref{fig-time-plan} shows the tasks for the implementation as well as the ones for writing the thesis and preparing slides for talks with the intended weeks for their completion.
+
+\begin{figure}[h!]
+	\begin{ganttchart}[
+		vgrid,
+		milestone label font = \bfseries,
+		milestone/.append style={draw=red, fill=red},
+		bar height = 0.3,
+		bar label font = \small,
+		y unit chart=0.65cm
+		]{1}{18}
+		\gantttitlelist{1,...,18}{1} \\
+
+		\ganttgroup{Writing Thesis}{2}{18} \\
+		\ganttbar{Abstract}{2}{2} \\
+		\ganttbar{Introduction}{2}{4} \\
+		\ganttbar{Related Work}{4}{6} \\
+		\ganttbar{Fundamentals}{7}{11} \\
+		\ganttbar{Concept and Implementation}{8}{14} \\
+		\ganttbar{Evaluation}{13}{16} \\
+		\ganttbar{Conclusion and Future Work}{16}{16} \\
+		\ganttbar{Review and Proof Reading}{17}{18} \\
+
+		\ganttgroup{Implementation/Testing}{1}{14} \\
+		\ganttbar{Simple Constraints}{1}{2} \\
+		\ganttlinkedbar{Creation and Deletion}{3}{4} \\
+		\ganttlinkedbar{Rule Refinement}{5}{6} \\
+		\ganttlinkedbar{Attribute Conditions}{7}{9} \\
+		\ganttlinkedbar{Graph Conditions}{10}{12} \\
+		\ganttlinkedbar{Bugfixing}{13}{14} \\
+
+		\ganttmilestone{Final Deadline}{18} \\
+		\ganttbar{Thesis Defense}{18}{18}
+	\end{ganttchart}
+	\caption{Tasks, milestones and deadlines}
+	\label{fig-time-plan}
+\end{figure}

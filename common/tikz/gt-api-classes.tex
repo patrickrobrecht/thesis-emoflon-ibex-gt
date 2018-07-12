@@ -1,0 +1,128 @@
+% !TeX encoding = UTF-8
+% !TeX spellcheck = en_US
+
+\begin{tikzpicture}
+	\begin{umlpackage}[x = 0, y = 0, name=api]{org.emoflon.ibex.gt.api}
+		\umlabstract[class, x = 0.8, y = 0]
+			{GraphTransformationApp}{
+				\# resourceSet: ResourceSet
+			}{
+				\umlvirt{\# registerMetaModels()} \methodSep
+				\umlvirt{\# initAPI(): API}
+			}
+
+		\umlabstract[class, x = 0.8, y = -3]
+			{GraphTransformationAPI}{}{
+				+ getModel(): ResourceSet \methodSep
+				+ setDPO() \methodSep
+				+ setSPO() \methodSep
+				+ updateMatches()
+			}
+
+		\umlabstract[class, x = 0.8, y = -7.7]
+			{GraphTransformationPattern}{
+				\# parameters: Map$<$String, Object$>$
+			}{
+				\umlvirt{\# convertMatch(IMatch): M} \methodSep
+				+ findAnyMatch(): Optional$<$M$>$ \methodSep
+				+ findMatches(): Collection$<$M$>$ \methodSep
+				+ getParameters(): Map$<$String, Object$>$ \methodSep
+				\umlvirt{\# getParameterNames(): List$<$String$>$} \methodSep
+				+ subscribeAppearing(Consumer$<$M$>$) \methodSep
+				+ subscribeDisappearing(Consumer$<$M$>$) \methodSep
+				+ subscribeMatchDisappears(M, Consumer$<$M$>$)
+			}
+
+		\umlabstract[class, x = 1.2, y = -12.2]
+			{GraphTransformationRule}{}{
+				+ apply(): Optional$<$M$>$ \methodSep
+				+ setDPO() \methodSep
+				+ setSPO()
+			}
+
+		\umlabstract[class, x = 1.2, y = -14]
+			{GraphTransformationMatch}{}{}
+	\end{umlpackage}
+	
+	\umlinherit
+		{GraphTransformationRule}
+		{GraphTransformationPattern}
+	\umluniassoc[arg2=api, pos2= 0.5]
+		{GraphTransformationPattern}
+		{GraphTransformationAPI}
+	\umluniassoc[arg2=pattern, pos2 = 1.6, align2=right, anchor2 = -132, geometry=-|]
+		{GraphTransformationMatch}
+		{GraphTransformationPattern}
+
+	\begin{umlpackage}[x = 3.5, y = -17.3, name=engine]{org.emoflon.ibex.gt.engine}
+		\umlclass[class, x = 0, y = 0]
+			{GraphTransformationInterpreter}{}{
+				+ apply(IMatch, PushoutApproach, Map$<$String, Object$>$): Optional$<$IMatch$>$ \methodSep
+				+ matchStream(String, Map$<$String, Object$>$): Stream$<$IMatch$>$
+			}
+	\end{umlpackage}
+
+	\umluniassoc[arg2=interpreter, pos2 = 2, geometry=-|-, arm1=-4.5cm]
+		{GraphTransformationAPI}
+		{GraphTransformationInterpreter}
+	\umluniassoc[geometry=-|-, arm1=-4.5cm]
+		{GraphTransformationPattern}
+		{GraphTransformationInterpreter}
+
+	\begin{umlpackage}[x = 7.7, y = 0, name = exampleapi]{example.api}
+		\umlclass[class, x = 0, y = 0]
+			{ExampleApp}{}{}
+
+		\umlclass[class, x = 0, y = -1.8]
+			{ExampleAPI}{}{
+				+ ex1(): Ex1Pattern \methodSep
+				+ ex2(): Ex2Rule
+			}
+	\end{umlpackage}
+
+	\umlinherit
+		{ExampleApp}
+		{GraphTransformationApp}
+	\umlinherit[geometry=-|-, arm1 = -2.3cm]
+		{ExampleAPI}
+		{GraphTransformationAPI}
+
+	\begin{umlpackage}[x = 8, y = -5.5, name = exampleapirules]{example.api.rules}
+		\umlclass[class, x = 0, y = 0]
+			{Ex1Pattern}{}{
+				+ bindA(A): Ex1Pattern
+			}
+
+		\umlclass[class, x = 0, y = -1.8]
+			{Ex2Rule}{}{
+				+ bindA(A): Ex2Rule
+			}
+	\end{umlpackage}
+
+	\umlinherit[geometry=-|-, arm1 = -2.6cm, anchor2 = 20]
+		{Ex1Pattern}
+		{GraphTransformationPattern}
+	\umlinherit[geometry=-|-, arm1 = -2.6cm]
+		{Ex2Rule}
+		{GraphTransformationRule}
+
+	\begin{umlpackage}[x = 7.05, y = -11, name = exampleapimatches]{example.api.matches}
+		\umlclass[class, x = 0, y = 0]
+			{Ex1Match}{}{
+				+ getA(): A
+			}
+
+		\umlclass[class, x = 2.5, y = 0]
+			{Ex2Match}{}{
+				+ getA(): A \methodSep
+				+ getB(): B
+			}
+	\end{umlpackage}
+
+	\umlinherit[geometry=|-, arm1 = -2.5cm]
+		{Ex1Match}
+		{GraphTransformationMatch}
+	\umlinherit[geometry=|-, arm1 = -2.5cm]
+		{Ex2Match}
+		{GraphTransformationMatch}
+\end{tikzpicture}

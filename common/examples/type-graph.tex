@@ -1,0 +1,28 @@
+% !TeX encoding = UTF-8
+% !TeX spellcheck = en_US
+
+\begin{tikzpicture}
+	\node[tnode] (game) {Game};
+	\node[tnode, below = of game, xshift = -2cm] (character) {Character};
+	\node[tnode, below = of game, xshift = 2cm] (platform) {Platform};
+
+	\draw[tedge]
+		(game)
+		-- node[left, xshift = -0.2cm, yshift = 0.2cm] {characters}
+		(character);
+	\draw[tedge]
+		(game)
+		-- node[right, xshift = 0.2cm, yshift = 0.2cm] {platforms}
+		(platform);
+	\draw[tedge]
+		(character)
+		-- node[below] {standsOn}
+		(platform);
+	\draw[tedge]
+		(platform.south)
+		-- ++(0, -1)
+		-- ++(1.25, 0)
+		-- ++(0, 1.25)
+		-- node[right, xshift = 0.3cm] {neighbors}
+		(platform.east);
+\end{tikzpicture}

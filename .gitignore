@@ -1,0 +1,16 @@
+.idea/
+*.aux
+*.bbl
+*.blg
+*.gz
+*.lof
+*.log
+*.lol
+*.lot
+*.ods#
+*.odt#
+*.out
+*.pdf
+*.nav
+*.snm
+*.toc

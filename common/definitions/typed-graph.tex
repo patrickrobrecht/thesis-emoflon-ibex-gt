@@ -1,0 +1,11 @@
+\begin{tikzpicture}[defpicture]
+	\node (TG) {$TG$};
+	\node[def1, below of = TG] (G) {$G$};
+	\node[right of = G] (G') {$G'$};
+
+	\begin{scope}[every path/.style = arrow]
+		\path[def1-arrow] (G) to node[def1, left] {type} (TG);
+		\path[def2-arrow] (G) to node[def2, below] {f} (G');
+		\path (G') to node[right] {type'} (TG);
+	\end{scope}
+\end{tikzpicture}

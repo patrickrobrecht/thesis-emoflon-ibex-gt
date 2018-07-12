@@ -1,0 +1,62 @@
+% !TeX encoding = UTF-8
+% !TeX spellcheck = en_US
+
+\begin{tikzpicture} [
+		auto,
+		node distance = 1.5cm,
+		editor/.style = {
+			rectangle,
+			rounded corners,
+			thick,
+			text width = 8em,
+			text centered,
+			minimum height = 3em
+		},
+		pattern/.style = {
+			rectangle,
+			rounded corners,
+			thick,
+			text width = 9.5em,
+			text centered,
+			minimum height = 3em
+		},
+		edge/.style = {
+			->,
+			thick
+		}
+	]
+
+	\node[editor, draw = black] (context) {
+		context nodes and references
+	};
+	\node[editor, draw = black, below of = context] (conditions) {
+		attribute conditions
+	};
+	\node[editor, draw = red, below of = conditions] (delete) {
+		deleted nodes and references
+	};
+	\node[editor, draw = green, below of = delete] (create) {
+		created nodes and references
+	};
+	\node[editor, draw = green, below of = create] (assignments) {
+		attribute assignments
+	};
+
+	\node[pattern, draw = black, right = 3cm of context] (context-pattern) {
+		IBeXContextPattern
+		{\tiny or IBeXContextAlternatives}
+	};
+	\node[pattern, draw = red, right = 3cm of delete] (delete-pattern) {
+		IBeXDeletePattern
+	};
+	\node[pattern, draw = green, right = 3cm of assignments] (create-pattern) {
+		IBeXCreatePattern
+	};
+
+	\draw[edge] (context) to (context-pattern);
+	\draw[edge] (conditions.east) to[bend right] (context-pattern.south west);
+	\draw[edge] (delete.east) to (context-pattern.south);
+	\draw[edge] (delete) to (delete-pattern);
+	\draw[edge] (create.east) to[bend left] (create-pattern.north west);
+	\draw[edge] (assignments) to (create-pattern);
+\end{tikzpicture}

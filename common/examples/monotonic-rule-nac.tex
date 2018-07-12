@@ -1,0 +1,80 @@
+% !TeX encoding = UTF-8
+% !TeX spellcheck = en_US
+
+\begin{tikzpicture}[remember picture]
+	\node[dnode] (N) {
+		\begin{tikzpicture}[tgraph]
+			\node[dlabel] (labelN) {$\mathbf{N}$};
+			\node[tnode, below = 0.2cm of labelN] (p) {p: Platform};
+			\node[tnode, below = of p] (c') {c$'$: Character};
+			\draw[tedge] (c') -- (p);
+		\end{tikzpicture}
+	};
+
+	\node[dnode, right = 1.2cm of N] (L) {
+    	\begin{tikzpicture}[tgraph]
+    		\node[dlabel] (labelL) {$\mathbf{L}$};
+	    	\node[tnode, below = 0.2cm of labelL] (g) {g: Game};
+	    	\node[tnode, below = of g] (p) {p: Platform};
+	    	\draw[tedge] (g) -- (p);
+    	\end{tikzpicture}
+  	};
+
+  	\node[dnode, right = 1.2cm of L] (R) {
+    	\begin{tikzpicture}[tgraph]
+    		\node[dlabel] (labelR) {$\mathbf{R}$};
+			\node[tnode, below = 0.2cm of labelR] (c) {c: Character};
+			\node[tnode, below = of c] (g) {g: Game};
+			\node[tnode, below = of g] (p) {p: Platform};
+			\draw[tedge] (c)
+				-- ++(-1.5,0)
+				-- ++(0,-2.13)
+				-- (p);
+			\draw[tedge] (g) -- (c);
+			\draw[tedge] (g) -- (p);
+		\end{tikzpicture}
+   	};
+
+	\node[dnode, below = 1.95cm of L] (G) {	  	
+		\begin{tikzpicture}[tgraph]
+			\node[dlabel] (labelG) {$\mathbf{G}$};
+		   	\node[tnode, below = 0.2cm of labelG] (g) {g: Game};
+		   	\node[tnode, below = of g] (p) {p: Platform};
+		   	\node[tnode, below = of p] (q) {q: Platform};
+		   	\draw[tedge] (g) -- (p);
+		   	\draw[tedge] (g.east)
+			   	-- ++(0.6,0)
+			   	-- ++(0,-2.13)
+			   	-- (q.east);
+		   	\draw[tedge] (p) -- (q);
+	   	\end{tikzpicture}
+	};
+
+	\node[dnode, below = 1cm of R] (G') {
+    	\begin{tikzpicture}[tgraph]
+    		\node[dlabel] (labelG') {$\mathbf{G'}$};
+			\node[tnode, below = 0.2cm of labelG'] (c) {c: Character};
+			\node[tnode, below = of c] (g) {g: Game};
+			\node[tnode, below = of g] (p) {p: Platform};
+			\node[tnode, below = of p] (q) {q: Platform};
+			\draw[tedge] (c)
+				-- ++(-1.5,0)
+				-- ++(0,-2.11)
+				-- (p);
+			\draw[tedge] (g) -- (c);
+			\draw[tedge] (g) -- (p);
+			\draw[tedge] (g.east)
+				-- ++(0.6,0)
+				-- ++(0,-2.13)
+				-- (q.east);
+			\draw[tedge] (p) -- (q);
+		\end{tikzpicture}
+   	};
+
+	\draw[dedge] (L) -- node[above] {$r$} (R);
+	\draw[dedge] (L) -- node[left] {$m$} (G);
+	\draw[dedge] (L) -- node[above] {$n$} (N);
+	\draw[dedge] (N.south) -- node[color = orange, left, xshift = 3mm] {$+$} (G.west);
+	\draw[dedge] (R) -- node[right] {$m'$} (G');
+	\draw[dedge] (G) -- node[below] {$r'$} (G');
+\end{tikzpicture}

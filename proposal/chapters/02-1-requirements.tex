@@ -1,0 +1,76 @@
+% !TeX spellcheck = en_US
+\chapter{Requirements and Contribution}
+\label{problem-and-contribution}
+In this chapter we describe the features we consider to be useful for a graph transformation tool (our requirements), analyze how existing current graph transformation tools support these features and present our contribution.
+
+\section{Requirements for a Graph Transformation Tool}
+\label{requirements}
+We are interested in a tool for endogenous model transformations of attributed typed graphs which is usable for teaching and can be seamlessly integrated into a general purpose language (Java).
+In the following we list the features we regard desirable for the intended use cases ordered from necessary to less significant aspects.
+For each requirement we shall give a label, a short explanation and argue why the feature is useful.
+
+\begin{description}
+	\item[Incrementality] ~\\
+		Matching a pattern in a host graph basically requires solving the subgraph isomorphism problem which is known to be NP-complete in general.
+		Therefore this step is the most significant step for the performance of a graph transformation engine.
+		The goal of incremental pattern matching is to improve the efficiency of this step by storing the set of matches of a rule and incrementally maintaining it as the model changes
+		(cp. \cite{IncrementalGraphPatternMatching}, \cite{EvaluationOfIncrementalPatternMatching}).
+
+		With support for incrementality some features can be implemented much easier\footnote{We want to find tasks which are best solved with incremental pattern matching (cp. RQ 1 in Section~\ref{tasks}) and provide support for those tasks via the API (see below).},
+		\eg notifications if a certain pattern is found for the first time
+		or if a certain pattern cannot be matched anymore.
+
+	\item[Interpreter] ~\\
+		The graph transformations are realized with an interpreter, no code generation is necessary to perform model transformations.
+		The main advantage of an interpreter is that patterns can be found for all possible bindings.
+		For code generation all bindings (free or bound) have to be fixed at specification time.
+		The graph transformation engine should support setting rule parameters to fixed values before rule application\footnote{Compared to generated code, the interpreter engine will have a worse performance, but as the tool is mainly intended for teaching we consider performance to be of secondary importance.}.
+		
+		For developers of graph transformation rules interpreters have the advantage that the rule can be directly tested, without generating code.
+		As code generation may take a long time if the rule set is large and everything needs to be regenerated this can help to speed up the specification process.
+
+	\item[Integration with a TGG tool] ~\\
+		The graph transformation tool shall be integrated with a TGG tool,
+		such that one can reuse the same meta-models when switching between unidirectional and bidirectonal transformations.
+		A similar syntax for rule specification simplifies learning the domain-specific language for rule specification and allow even to reuse parts of an existing specification.
+		From a developer perspective the integration reduces the effort in maintaining both a GT and TGG tool.
+
+	\item[Mature integration with a general purpose language (GPL)] ~\\
+		A seamless integration with Java 8 via an API allows to invoke model queries and transformations from standard Java source code.
+		Thereby a developer can implement a method by just calling a graph transformation rule instead of writing own code for pattern matching and performing changes in the model.
+		This way queries for complicated graph structures and operations on them do not need to be programmed in Java, but can be specified in the GT rule editor and invoked by a program.
+
+		As the specification of rules does not require any programming skills this part can be understood much easier by people without programming experience.
+		Actually, even the domain experts instead of programmers could specify the rules.
+
+	\item[Dedicated support for model queries] ~\\
+		In addition to model transformations (\ie applying transformation rules on matches in a given host graph), we are interested in querying models, \ie just finding matches for the left-hand side of a rule and checking of graph conditions.
+		In the API this feature can be used to check conditions specified as patterns on the host graph or explore rule  	applicability without actually applying any changes.
+
+	\item[DPO or SPO semantics] ~\\
+		The implementation is based on the algebraic approach to graph transformations and therefore well-grounded on category theory, \eg supporting the \textit{double-pushout} (DPO) and \textit{single-pushout} (SPO) semantics.
+		Due to the foundation on category theory, the semantics are defined clearly (\eg how to deal with dangling edges).
+		With support for both approaches, one can flexibly switch between them, depending which is the correct one in the specific use case.
+
+	\item[Modularity on rule level] ~\\
+		\textit{Rule refinement} as modularity concept allows to inherit and overwrite patterns from parent rules.
+		This way common patterns can be shared between different rules, such that they do not have to be copied into similar or more specific rules.
+
+	\item[Application conditions] ~\\
+		Graph conditions, especially \textit{Negative Application Condition}s (NACs), can be specified to restrict rule application.
+
+	\item[Attribute manipulation] ~\\
+		Attribute constraints can be specified. New attribute constraints can be implemented in Java and integrated in the tool.
+
+	\item[Textual concrete syntax and visualization] ~\\
+		Graph transformation rules are specified textually in a DSL via an editor with syntax-highlighting.
+		The textual syntax allows easy versioning with any version control software.
+		A visualization is generated from the textual syntax to help users to understand large specifications, especially when using rule refinement.
+
+	\item[Modeling standard] ~\\
+		The tool supports a modeling standard (such as EMF) to provide interoperability of models with other tools.
+
+	\item[End-user documentation] ~\\
+		Detailed documentation for end-users is available such that people who are not familiar with the development of the tool can easily install and use it.
+		For teaching purposes this is necessary because students should be able to learn to work with the tool fast.
+\end{description}

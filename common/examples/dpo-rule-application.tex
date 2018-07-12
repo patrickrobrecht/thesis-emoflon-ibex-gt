@@ -1,0 +1,108 @@
+% !TeX encoding = UTF-8
+% !TeX spellcheck = en_US
+
+\begin{tikzpicture}[remember picture]
+	\node[dnode] (L) {
+    	\begin{tikzpicture}[tgraph]
+    		\node[dlabel] (label) {$\mathbf{L}$};
+			\node[tnode, below = 0.2cm of label] (c) {c: Character};
+			\node[tnode, below = of c] (p1) {p1: Platform};
+			\node[tnode, below = of p1] (p2) {p2: Platform};
+			\draw[tedge] (c) -- (p1);
+			\draw[tedge] (p1) -- (p2);
+		\end{tikzpicture}
+  	};
+
+	\node[dnode, right = 1.2cm of L] (K) {
+    	\begin{tikzpicture}[tgraph]
+    	    \node[dlabel] (label) {$\mathbf{K}$};
+			\node[tnode, below = 0.2cm of label] (c) {c: Character};
+			\node[tnode, below = of c] (p1) {p1: Platform};
+			\node[tnode, below = of p1] (p2) {p2: Platform};
+			\draw[tedge] (p1) -- (p2);
+		\end{tikzpicture}
+	};
+
+  	\node[dnode, right = 1.2cm of K] (R) {
+    	\begin{tikzpicture}[tgraph]
+    	    \node[dlabel] (label) {$\mathbf{R}$};
+			\node[tnode, below = 0.2cm of label] (c) {c: Character};
+			\node[tnode, below = of c] (p1) {p1: Platform};
+			\node[tnode, below = of p1] (p2) {p2: Platform};
+			\draw[tedge] (c) 
+				-- ++(-1.5,0)
+				-- ++(0,-2.13)
+				-- (p2);
+			\draw[tedge] (p1) -- (p2);
+		\end{tikzpicture}
+   	};
+
+	\node[dnode, below = 1cm of L] (G) {
+    	\begin{tikzpicture}[tgraph]
+    	    \node[dlabel] (label) {$\mathbf{G}$};
+			\node[tnode, below = 0.2cm of label] (c) {c: Character};
+			\node[tnode, below = of c] (g) {g: Game};
+			\node[tnode, below = of g] (p) {p: Platform};
+			\node[tnode, below = of p] (q) {q: Platform};
+			\draw[tedge] (c)
+				-- ++(-1.5,0)
+				-- ++(0,-2.13)
+				-- (p);
+			\draw[tedge] (g) -- (c);
+			\draw[tedge] (g) -- (p);
+			\draw[tedge] (g.east)
+				-- ++(0.6,0)
+				-- ++(0,-2.13)
+				-- (q.east);
+			\draw[tedge] (p) -- (q);
+		\end{tikzpicture}
+	};
+
+	\node[dnode, below = 1cm of K] (D) {
+    	\begin{tikzpicture}[tgraph]
+    	    \node[dlabel] (label) {$\mathbf{D}$};
+			\node[tnode, below = 0.2cm of label] (c) {c: Character};
+			\node[tnode, below = of c] (g) {g: Game};
+			\node[tnode, below = of g] (p) {p: Platform};
+			\node[tnode, below = of p] (q) {q: Platform};
+			\draw[tedge] (g) -- (c);
+			\draw[tedge] (g) -- (p);
+			\draw[tedge] (g.east)
+				-- ++(0.6,0)
+				-- ++(0,-2.13)
+				-- (q.east);
+			\draw[tedge] (p) -- (q);
+		\end{tikzpicture}
+	};
+
+	\node[dnode, below = 1cm of R] (G') {
+    	\begin{tikzpicture}[tgraph]
+    		\node[dlabel] (label) {$\mathbf{G'}$};
+			\node[tnode, below = 0.2cm of label] (c) {c: Character};
+			\node[tnode, below = of c] (g) {g: Game};
+			\node[tnode, below = of g] (p) {p: Platform};
+			\node[tnode, below = of p] (q) {q: Platform};
+			\draw[tedge] (c)
+				-- ++(-1.5,0)
+				-- ++(0,-3.13)
+				-- (q);
+			\draw[tedge] (g) -- (c);
+			\draw[tedge] (g) -- (p);
+			\draw[tedge] (g.east)
+				-- ++(0.6,0)
+				-- ++(0,-2.13)
+				-- (q.east);
+			\draw[tedge] (p) -- (q);
+		\end{tikzpicture}
+   	};
+
+	\draw[dedge] (K) -- node[above] {$l$} (L);
+	\draw[dedge] (K) -- node[above] {$r$} (R);
+
+	\draw[dedge] (L) -- node[left] {$m$} (G);
+	\draw[dedge] (K) -- node[right] {$d$} (D);
+ 	\draw[dedge] (R) -- node[right] {$m'$} (G');
+
+	\draw[dedge] (D) -- node[below] {$l'$} (G);
+	\draw[dedge] (D) -- node[below] {$r'$} (G');
+\end{tikzpicture}

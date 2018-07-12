@@ -1,0 +1,55 @@
+% !TeX encoding = UTF-8
+% !TeX spellcheck = en_US
+\chapter{List of Projects}
+\label{appendix-list-of-projects}
+
+\begin{figure}[h!]
+	\centering
+	\input{../common/tikz/emoflon-ibex-components.tex} \\
+	(cp. Section~\ref{emoflon-ibex-architecture})
+\end{figure}
+
+\begin{longtable}[h!]{lll}
+	\toprule
+	Repository
+		& Component
+		& Plugin Project \\
+	\midrule
+	emoflon-ibex-ui\footnote{\url{https://github.com/eMoflon/emoflon-ibex-ui}}
+		& Editor Utils
+		& \texttt{org.emoflon.ibex.editor.utils} \\		
+		& GT Editor
+		& \vtop{
+			\hbox{\texttt{org.emoflon.ibex.gt.editor}}
+			\hbox{\texttt{org.emoflon.ibex.gt.editor.ide}}
+			\hbox{\texttt{org.emoflon.ibex.gt.editor.ui}}
+		} \\
+		& TGG Editor
+		& \vtop{
+			\hbox{\texttt{org.emoflon.ibex.tgg.editor}}
+			\hbox{\texttt{org.emoflon.ibex.tgg.editor.ui}}
+			\hbox{\texttt{org.emoflon.ibex.tgg.ide}}
+		} \\
+	\midrule
+	emoflon-ibex\footnote{\url{https://github.com/eMoflon/emoflon-ibex}}
+		& Common
+		& \texttt{org.emoflon.ibex.common} \\
+		& GT
+		& \texttt{org.emoflon.ibex.gt} \\
+		& TGG
+		& \vtop{
+			\hbox{\texttt{org.emoflon.ibex.core.language}}
+			\hbox{\texttt{org.emoflon.ibex.core.runtime}}
+		} \\
+	\midrule
+	emoflon-ibex-democles\footnote{\url{https://github.com/eMoflon/emoflon-ibex-democles}} 
+		& GT Democles
+		& \texttt{org.emoflon.ibex.gt.democles} \\
+		& TGG Democles
+		& \vtop{
+			\hbox{\texttt{org.emoflon.ibex.tgg.ide.democles}}
+			\hbox{\texttt{org.emoflon.ibex.tgg.runtime.democles}}
+		} \\
+	\bottomrule
+	\caption{List of Projects in the eMoflon::IBeX Tool Suite}
+\end{longtable}

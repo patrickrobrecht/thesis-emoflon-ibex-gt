@@ -1,0 +1,84 @@
+\chapter{Requirements}
+\label{requirements}
+We are interested in a \textit{graph transformation tool} for endogenous model transformations of attributed typed graphs.
+The tool shall be usable for teaching and can be seamlessly integrated into a general purpose language (Java).
+In the following, we list the features we regard as desirable for the intended use cases in an order ranging from essential to less significant aspects.
+For each requirement we shall give a label, a short explanation and argue why the feature is useful.
+
+\begin{description}
+	\item[Incrementality] ~\\
+		Matching a pattern in a host graph basically requires solving the subgraph isomorphism problem which is known to be NP-complete in general.
+		Incremental pattern matchers store the set of matches of a rule and incrementally maintain it as the model changes
+		(cp. \cite{IncrementalGraphPatternMatching}, \cite{EvaluationOfIncrementalPatternMatching}).
+
+		With support for incrementality some features can be implemented more easily,
+		\eg notifications if a certain pattern is found for the first time
+		or if a certain pattern cannot be matched anymore
+		(cp. Section~\ref{incrementality} for a description of tasks which are best solved with incremental pattern matching).
+		Without incremental pattern matching one would need to check for new matches for the observed patterns after every change to be able to report new matches as soon as they appear.
+
+	\item[Interpreter] ~\\
+		The graph transformations are realized with an interpreter,\footnote{Compared to generated code, an interpreter will have reduced performance in general, but as the tool is mainly intended for teaching, we consider performance to be of secondary importance.}
+		so no code generation is necessary to perform pattern matching and model manipulation.\footnote{Generated code for the EMF meta-models as well as for the typed interface provided for Java integration can of course be used. In fact, eMoflon::IBeX-GT requires generated code for the meta-models and for the generated API.}
+		The main advantage of an interpreter is that patterns can be found for all possible bindings.
+		For code generation all bindings (free or bound) have to be fixed at specification time.
+		The graph transformation engine should support setting parameters to fixed values before application.
+
+		For developers of graph transformation rules interpreters have the advantage that the rule can be directly tested without generating code.
+		As code generation may take a long time if the rule set is large and everything needs to be regenerated, this can help to speed up the specification process.
+
+		In addition, the interpreter-based execution appears to be best suited for support of incrementality as we do not know any pattern matcher that is not an interpreter.
+
+\newpage % avoid page break after first line of the requirement
+	\item[Integration with a TGG tool] ~\\
+		The graph transformation tool shall be integrated with a TGG tool such that the implementation can use shared libraries.
+		From a developer's perspective the integration reduces the effort for maintaining both a GT and TGG tool.
+
+		The same meta-models can be used for GT and TGG specifications.
+		This makes it possible to combine GT and TGG (\eg GT for preprocessing of a model transformed via TGG).
+		A similar syntax for rule specification simplifies learning the domain-specific language for rule specification and allows even to reuse parts of an existing specification.
+
+	\item[Mature integration with a general purpose language] ~\\
+		A seamless integration with Java 8 via an API allows to invoke model queries and transformations from standard Java source code.
+		Thereby a developer can implement a method by just calling a graph transformation rule instead of writing code for pattern matching and performing changes in the model.
+		This way queries for complicated graph structures and operations on them do not need to be programmed in Java, but can be specified in the GT editor and invoked by a program.
+
+		As the specification of patterns and rules does not require advanced programming skills this part can be understood much easier by people without programming experience.
+		Ideally even domain experts instead of programmers could specify the rules.
+
+		The editor specification focuses on graph structures and does not include control flow.
+		Instead the control flow structures of Java will be used in a program using the API.
+		In this way the benefits of the textual pattern specification for complex graph patterns are combined with the full power of Java control flow structures.
+
+	\item[Dedicated support for model queries] ~\\
+		In addition to model transformations (\ie applying transformation rules on matches in a given host graph), we are interested in querying models, \ie just finding matches for the left-hand side of a rule.
+		In the API this feature can be used to check constraints specified as patterns on the host graph or check rule applicability without actually applying any changes.
+
+	\item[DPO or SPO semantics] ~\\
+		The implementation shall be based on the algebraic approach to graph transformations and therefore be well-grounded on category theory, \eg supporting the \textit{double-pushout} (DPO) and \textit{single-pushout} (SPO) semantics.
+		With support for both approaches, one can flexibly switch between them, choosing the most suitable one for a specific use case.
+
+	\item[Modularity on rule level] ~\\
+		\textit{Pattern refinement}\footnote{see Section~\ref{pattern-refinement} for a definition of pattern refinement} as a modularity concept allows to inherit and overwrite graph structures from super patterns.
+		This way common parts can be shared between different patterns, such that they do not have to be copied into similar or more specific patterns.
+
+	\item[Application conditions] ~\\
+		Graph conditions, especially \textit{Negative Application Condition}s (NACs), can be specified to restrict rule applicability.\footnote{see Section~\ref{fundamentals-application-conditions} for a formal definition of application conditions}
+		Simple application conditions shall be combinable via logical expressions.
+
+	\item[Attribute manipulation] ~\\
+		The editor shall support the specification of attribute constraints.
+		New attribute constraints can be implemented in Java and integrated into the specification.
+
+	\item[Textual concrete syntax and visualization] ~\\
+		Graph transformation rules shall be specified textually in a DSL via an editor with syntax-highlighting.
+		The textual syntax allows easy versioning with any version control software.
+		A visualization is generated from the textual syntax to help users to understand large specifications, especially when using pattern refinement.
+
+	\item[Modeling standard] ~\\
+		The tool shall support a modeling standard (such as EMF) to provide interoperability of models with other tools.
+
+	\item[End-user documentation] ~\\
+		Detailed documentation for end-users shall be available such that people who are not familiar with the development of the tool can easily install and use it.
+		For teaching purposes this is necessary because students should be able to quickly and easily learn to work with the tool.
+\end{description}

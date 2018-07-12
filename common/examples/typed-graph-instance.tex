@@ -1,0 +1,15 @@
+% !TeX encoding = UTF-8
+% !TeX spellcheck = en_US
+
+\begin{tikzpicture}
+	\node[tnode] (g) {g: Game};
+	\node[tnode, below = of g] (p) {p: Platform};
+	\node[tnode, left = of p] (c) {c: Character};
+	\node[tnode, right = of p] (q) {q: Platform};
+
+	\draw[tedge] (g.west) -- (c);
+	\draw[tedge] (c) -- (p);
+	\draw[tedge] (g) -- (p);
+	\draw[tedge] (g.east) -- (q);
+	\draw[tedge] (p) -- (q);
+\end{tikzpicture}

@@ -1,0 +1,208 @@
+% !TeX spellcheck = en_US
+\section{Related Work}
+\label{related-work}
+There are already some tools available supporting the modification of attributed typed graphs via graph transformation.
+Many of them are used for academic purpose, while others are also applied in industry.
+In the following these tools are compared with respect to the requirements described in Section \ref{requirements}\footnote{The comparison is partly based on the comparison of model transformation tools published by Kahani and Cordy in 2015 (cp. \cite{ComparisonAndEvaluationOfModelTransformationTools}, \cite{ComparisonOfModelTransformationToolsWebsite}).}.
+The comparison -- summarized in Figure~\ref{fig-comparison} -- focuses on tools with at least one release since 2015 or special support for one of the requirements\footnote{Horizontal and vertical lines in the table are just for easier reading, the order of aspects is as in the previous section.}.
+Please note that the comparison takes solely our requirements into consideration.
+The tool were analyzed in the version stated in Figure~\ref{fig-comparison} according to their official documentation.
+
+AGG (``The Attributed Graph Grammar System'') \cite{AGGWebsite}, developed by Olga Runge (TU Berlin), interprets graph transformation rules with NACs and control structures based on the SPO semantics.
+AGG offers an API for integration with Java programs.
+While the latest version was released in 2017, the manual \cite{AGGManual} is ten years old.
+ 
+AToMPM (``A Tool for Multi-formalism and Meta-Modelling'') \cite{AToMPMDocs} is an interpreter and code generator for model queries and unidirectional transformations (both endogenous and exogenous) with a web-based user interface.
+The development of the tool is a joint project of universities in Montreal, Antwerp and Alabama.
+An integration into a general purpose language is not directly supported.
+AGG and AtoMPM do not support modularity for rules and parameterized rules.
+
+\newcommand{\rotateText}[1]{\rotatebox[origin=cb]{75}{{#1}}}
+\setlength{\tabcolsep}{4pt}
+\begin{longtable}{p{43mm}|ccc|ccc|ccc}
+	\toprule
+	Tool, Version $\rightarrow$ \newline ~ \newline Feature $\downarrow$
+		& \rotateText{AGG} 
+		& \rotateText{AtoMPM} 
+		& \rotateText{eMoflon::SDM}
+		& \rotateText{EMorF}
+		& \rotateText{GRAPE}
+		& \rotateText{GrGen.NET} 
+		& \rotateText{GROOVE}
+		& \rotateText{Henshin EMF} 
+		& \rotateText{VIATRA} \\
+		& 2.1
+		& 0.6.1
+		& 2.32.0
+		& 0.4.2
+		& 0.1.1
+		& 4.5.2
+		& 5.7.2
+		& 1.4.0
+		& 1.6.1 \\
+	\midrule
+	Incrementality
+		& \no
+		& \no
+		& \no
+		& \no
+		& \no
+		& \no
+		& \no
+		& \no
+		& \yes \\
+	Interpreter
+		& \yes
+		& \yes
+		& \no
+		& \yes 
+		& \yes
+		& \no 
+		& \yes 
+		& \yes
+		& \yes \\
+	Integration with a TGG tool
+		& \no
+		& \no
+		& \yes
+		& \yes
+		& \no
+		& \no
+		& \no
+		& \no
+		& \no \\
+	\midrule
+	Mature integration with a GPL
+		& \yes
+		& \no
+		& \no
+		& \yes
+		& \yes
+		& \yes
+		& (\yes)
+		& \yes
+		& \yes \\
+	Dedicated support for model queries
+		& \no
+		& \yes
+		& \no
+		& \yes
+		& \no
+		& \no
+		& \no
+		& \no
+		& \yes \\
+	DPO or SPO semantics
+		& SPO
+		& ?\footnote{The documentation does not describe the pushout semantics.}
+		& SPO
+		& SPO
+		& both
+		& SPO
+		& both
+		& both
+		& -- \\
+	\midrule
+	Modularity on rule level
+		& \no
+		& \no
+		& \no
+		& \no
+		& \no
+		& (\yes)
+		& \no
+		& \no
+		& (\yes) \\
+	Application conditions\footnote{A \yes indicates support for more complex application conditions than NACs.}
+		& NACs
+		& NACs
+		& NACs
+		& OCL\footnote{EMorF one can use constraints defined in the Object Constraint Language (OCL) to restrict the applicability of a rule.}
+		& NACs
+		& \yes
+		& NACs
+		& \yes
+		& NACs \\
+ 	Attribute manipulation\footnote{Most tools only support a limited set of attribute conditions, indicated by (\yes).}
+		& (\yes)
+		& (\yes)
+		& \yes
+		& (\yes)
+		& (\yes)
+		& \yes
+		& (\yes)
+		& (\yes)
+		& (\yes) \\
+	\midrule
+	Textual concrete syntax and visualization\footnote{AGG, AtoMPM, EMorF, eMoflon::SDM, GROOVE and Henshin EMF come with a graphical editor,
+		while GRAPE and GrGen.NET provide a textual editor and a generated visualization.
+		VIATRA makes use of a textual syntax, but does not provide any visualization.}
+		& \no
+		& \no
+		& \no
+		& \no
+		& \yes
+		& \yes
+		& \no
+		& \no
+		& \no \\
+	Modeling standard
+		& GXL
+		& \no
+		& EMF
+		& EMF
+		& Neo4J
+		& EMF
+		& GXL
+		& EMF
+		& EMF \\
+	End-user documentation
+		& (\yes)
+		& \yes
+		& \yes
+		& \no
+		& \yes
+		& \yes
+		& \yes
+		& \yes
+		& \yes \\
+	\bottomrule 
+	\caption{Comparison of Graph Transformation Tools}
+	\label{fig-comparison}
+\end{longtable}
+
+eMoflon \cite{eMoflonWebsite} is a GT and TGG tool developed at TU Darmstadt and Paderborn University.
+Only eMoflon::SDM (the GT part) is compared with our requirements.
+The EMF-based Eclipse plugin relies on code generation.
+An end-user handbook \cite{eMoflonHandbook} is available, introducing eMoflon based on examples.
+
+EMorF \cite{EMorFWebsite}, developed by Solunar GmbH, is an EMF-based Eclipse plugin with support for model queries and model transformations (model modification as well as bidirectional transformations with TGGs).
+It offers an API for integration into Java programs, but no detailed API documentation is available.
+The parameters of the API are not typed; the same holds for objects in matches such that casts are required.
+The same holds for the rule specification which is just introduced based on one example.
+The last release 0.4.2 was published in 2012, the development has been discontinued.
+
+GRAPE (``Graph Rewriting And Persistence Engine'') \cite{GRAPEWebsite}, a GT interpreter by Jens Weber \cite{GRAPE}, can be integrated into Clojure programs.
+The GRAPE interpreter uses SPO semantics by default, but rules may specifiy that they follow DPO.
+Rules can be parameterized, but cannot refine other rules.
+
+GrGen.NET (``Graph Rewrite Generator'') \cite{GrGenWebsite} offers declarative rule specification for transformations, applied by a code generator.
+Their application follows SPO semantics.
+Rules may share subpatterns, but cannot refine other rules.
+An API enables integration into C\# code.
+Detailed documentation \cite{GrGenUserManual} is available.
+
+GROOVE (``GRaphs for Object-Oriented Verification'') \cite{GrooveWebsite} provides graph transformations based on SPO rules.
+Graphs can be queried with Prolog, but graphs cannot be transformed via a general purpose language.
+Groove also lacks a modularity concept in the rule specification.
+
+Henshin EMF \cite{HenshinEMFWebsite} is an Eclipse-based graph transformaton tool providing an Interpreter API for the usage in Java code.
+The interpreter supports both SPO and DPO which can be arbitrarily mixed.
+The tool is documented in a wiki \cite{HenshinEMFWiki} with examples.
+
+VIATRA \cite{VIATRAWebsite}, part of the Eclipse Modeling Project, is based on an incremental query backend and focuses on pattern matching and not on graph transformation.
+A Java API is available for integration into Java applications.
+Even if the focus is not on algebraic GT, VIATRA offers major support for many of our requirements, but lacks integration with a TGG tool.
+VIATRA offers composable and reusable patterns, but there is no modularity concept on rule level.
+No visualization is provided for textual editor.
+The website offers tutorials and documentation.

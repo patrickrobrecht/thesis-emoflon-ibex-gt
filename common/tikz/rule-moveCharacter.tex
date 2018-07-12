@@ -1,0 +1,19 @@
+\begin{tikzpicture}[auto]
+	\node[node, context] (c) {
+		character: Character
+	};
+
+	\node[node, context, below = 1cm of c, xshift = -4cm] (p1) {
+		platform1: Platform
+	};
+
+	\node[node, context, below = 1cm of c, xshift = 4cm] (p2) {
+		platform2: Platform
+	};
+
+	\path[edge, create]
+		(c) edge node[right, xshift = 0.4cm] {standsOn} (p2);
+
+	\path[edge, delete]
+		(c) edge node[left, xshift = -0.4cm] {standsOn} (p1);
+\end{tikzpicture}

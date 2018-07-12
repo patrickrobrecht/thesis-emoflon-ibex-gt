@@ -1,0 +1,26 @@
+\begin{tikzpicture}[defpicture]
+	\node[def1] (N) {$N$};
+	\node[def1, right of = N] (L) {$L$};
+	\node[right of = L] (K) {$K$};
+	\node[right of = K] (R) {$R$};
+
+	\node[below of = L] (G) {$G$};
+	\node[right of = G] (D) {$D$};
+	\node[right of = D] (G') {$G'$};
+
+	\begin{scope}[every path/.style = arrow]
+		\path[def1-arrow] (L) to node[def1, above] {$n$} (N);
+
+		\path (K) to node[above] {$l$} (L);
+		\path (K) to node[above] {$r$} (R);
+
+		\path (L) to node[right] {$m$} (G);
+		\path (K) to node {$d$} (D);
+		\path (R) to node {$m'$} (G');
+
+		\path (D) to node[below] {$l'$} (G);
+		\path (D) to node[below] {$r'$} (G');
+
+		\path (N) to node[left, xshift = 3mm] {$+$} (G);
+	\end{scope}
+\end{tikzpicture}

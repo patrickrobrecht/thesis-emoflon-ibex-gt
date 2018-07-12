@@ -1,0 +1,68 @@
+% !TeX encoding = UTF-8
+% !TeX spellcheck = en_US
+
+\section{Graph Transformation with eMoflon::IBeX}
+	\begin{frame}
+		\frametitle{Contents}
+		\tableofcontents[currentsection]
+	\end{frame}
+
+\subsection{Rule Editor}
+	\begin{frame}
+		\frametitle{Graph Transformation with eMoflon::IBeX}
+		\framesubtitle{Rule Editor: Textual Syntax of Example Rule}
+		\begin{center}
+			\includegraphics[width=0.65\textwidth]{../common/figures/editor-rule-moveCharacter}
+		\end{center}
+	\end{frame}
+	\begin{frame}
+		\frametitle{Graph Transformation with eMoflon::IBeX}
+		\framesubtitle{Rule Editor: Visualization}
+		\begin{columns}
+			\begin{column}{0.5\textwidth}
+				\includegraphics[width=\linewidth]{../common/figures/rule-moveCharacter}
+			\end{column}
+			\begin{column}{0.5\textwidth}
+				\includegraphics[width=\linewidth]{../common/figures/rule-moveCharacterToNeighboringPlatform}
+			\end{column}
+		\end{columns}
+	\end{frame}
+
+\subsection{Transform Editor Rules into Patterns}
+	\begin{frame}
+		\frametitle{Graph Transformation with eMoflon::IBeX}
+		\framesubtitle{Transform Editor Rules into Patterns}
+		\begin{center}
+			\resizebox{!}{0.75\textheight}{
+				\input{../common/tikz/architecture}
+			}
+		\end{center}
+	\end{frame}
+
+\subsection{Java API}
+	\begin{frame}
+		\frametitle{Graph Transformation with eMoflon::IBeX}
+		\framesubtitle{Java API: Count Matches}
+		\includegraphics[width=\textwidth]{../common/code/example-countMatches}
+	\end{frame}
+	\begin{frame}
+		\frametitle{Graph Transformation with eMoflon::IBeX}
+		\framesubtitle{Java API: Rule Application}
+		\includegraphics[width=\textwidth]{../common/code/example-rule-application}
+	\end{frame}
+	\begin{frame}
+		\frametitle{Graph Transformation with eMoflon::IBeX}
+		\framesubtitle{Java API: Subscriptions -- Exploit Incrementality}
+		\includegraphics[width=\textwidth]{../common/code/example-subscriptions}
+	\end{frame}
+
+\subsection{Integration with the TGG Part}
+	\begin{frame}
+		\frametitle{Graph Transformation with eMoflon::IBeX}
+		\framesubtitle{Integration with the TGG Part}
+		\begin{center}
+			\resizebox{\linewidth}{!}{
+				\input{../common/tikz/emoflon-ibex-components}
+			}
+		\end{center}
+	\end{frame}

@@ -1,0 +1,11 @@
+\begin{tikzpicture}[defpicture]
+	\node (Z) {$Z$};
+	\node[def1, right of = Z] (X) {$X$};
+	\node[def1, right of = X] (Y) {$Y$};
+
+	\begin{scope}[every path/.style = arrow]
+		\path (Z.20) to[bend left] node[above] {g} (X.160);
+		\path (Z.340) to[bend right] node[below] {h} (X.200);
+		\path[def1-arrow] (X) to node[def1] {f} (Y);
+	\end{scope}
+\end{tikzpicture}

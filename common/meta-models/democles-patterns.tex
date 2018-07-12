@@ -1,0 +1,104 @@
+% !TeX encoding = UTF-8
+% !TeX spellcheck = en_US
+
+\begin{tikzpicture}
+	\umlsimpleclass[class]
+		{Pattern}
+	\umlsimpleclass[class,
+		below = 1.5cm of Pattern]
+		{PatternBody}
+	\umlsimpleclass[class,
+		below = 1.5cm of PatternBody]
+		{Constraint}
+
+	\umlsimpleclass[class,
+		below = 1cm of Constraint,
+		xshift = -1.5cm]
+		{PatternInvocationConstraint}
+	\umlsimpleclass[class,
+		right = 0.5cm of PatternInvocationConstraint]
+		{Reference}
+	\umlsimpleclass[class,
+		right = 0.5cm of Reference]
+		{RelationalConstraint}
+	\umlsimpleclass[class,
+		below = 1cm of RelationalConstraint]
+		{Unequal}
+	\umlsimpleclass[class,
+		left = 0.5cm of Unequal]
+		{Equal}
+	\umlsimpleclass[class,
+		right = 0.5cm of Unequal,
+		alias=x]
+		{...}
+
+	\umlsimpleclass[class,
+		right = 4cm of Pattern]
+		{EMFVariable}
+	\umlsimpleclass[class,
+		right = 4cm of Constraint]
+		{ConstraintParameter}
+
+	\umlunicompo[arg2 = {bodies},
+		mult2 = 1..*,
+		pos = 0.75]
+		{Pattern}
+		{PatternBody}
+	\umlunicompo[arg2 = {symbolicParameters},
+		mult2 = 1..*,
+		pos = 0.5]
+		{Pattern}
+		{EMFVariable}
+	\umlunicompo[geometry = -|,
+		arg2 = {localVariables},
+		mult2 = 0..*,
+		pos = 0.5,
+		anchor2 = -140]
+		{PatternBody}
+		{EMFVariable}
+	\umlunicompo[arg2 = {constraints},
+		mult2 = 0..*,
+		pos = 0.75]
+		{PatternBody}
+		{Constraint}
+	\umlunicompo[arg2 = {parameters},
+		mult2 = 0..*,
+		pos = 0.5]
+		{Constraint}
+		{ConstraintParameter}
+	\umluniassoc[geometry = |-|,
+		arg2 = {reference},
+		mult2 = 0..*,
+		pos = 0.75,
+		anchor2 = -40]
+		{ConstraintParameter}
+		{EMFVariable}
+
+	\umluniassoc[geometry = |-,
+		arg2 = {invokedPattern},
+		mult2 = 0..*,
+		pos = 1.5,
+		anchor1 = 170,
+		anchor2 = 180]
+		{PatternInvocationConstraint}
+		{Pattern}
+
+	\umlinherit[geometry=|-|]
+		{PatternInvocationConstraint}
+		{Constraint}
+	\umlinherit[geometry=|-|]
+		{RelationalConstraint}
+		{Constraint}
+	\umlinherit[geometry=|-|]
+		{Reference}
+		{Constraint}
+	\umlinherit[geometry=|-|]
+		{Equal}
+		{RelationalConstraint}
+	\umlinherit[geometry=|-|]
+		{Unequal}
+		{RelationalConstraint}
+	\umlinherit[geometry=|-|]
+		{x}
+		{RelationalConstraint}
+\end{tikzpicture}

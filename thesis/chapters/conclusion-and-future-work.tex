@@ -1,0 +1,82 @@
+% !TeX encoding = UTF-8
+% !TeX spellcheck = en_US
+
+\chapter{Conclusion and Future Work}
+\label{future-work}
+This thesis presented eMoflon::IBeX-GT, a new graph transformation tool with a Java API exploiting the incrementality of its underlying pattern matching engine, Democles.
+It provides mature support for all requirements from Chapter~\ref{requirements} with some minor restrictions (cp. Sections~\ref{evaluation-requirements} and~\ref{expressiveness}).
+In Chapter~\ref{related-work} we have seen that no other GT tool supports all requirements.
+
+\section{Evaluation of Performance}
+\label{evaluation-of-performance}
+As performance is not the focus of this work, performance has only been evaluated shortly with respect to scalability for models of different sizes.
+The evaluation in Section~\ref{evaluation-performance} clearly indicates that the maximal model size which can be handled by eMoflon::IBeX is limited by the available main memory.
+It also shows that the time for creation is linear to the number of created elements, but the time for answering queries on the model is nearly constant.
+The incrementality helps to reach a constant response time for model queries, as the matches are not searched on demand, but maintained permanently.
+However, queries with bound parameters seem to have a worse performance as filtering the matches reported by Democles is necessary.
+
+\section{Optimization of the Pattern Network}
+\label{pattern-optimization}
+Due to a missing detailed evaluation of the performance, optimizing the pattern network generated for the graph transformation specification with respect to performance remains as future work.
+The insights for optimizing the patterns of eMoflon::IBeX-TGG by Weidmann (see \cite{ConsistencyManagementViaCombinationOfTGGAndILP}, Section 5.2) could be a useful starting point for the optimization.
+eMoflon::IBeX-TGG has configuration flags for the different possible patterns (\eg whether all edges are extracted into an invoked pattern) such that the user can evaluate which configuration is best for the used TGG rules.
+A similar approach could be implemented for GT, hopefully improving the performance for many pattern specifications.
+
+Currently the transformation from the editor model into the IBeX model does not exploit the refinement hierarchy.
+Instead the patterns are flattened into a structure without refinement before the transformation.
+It could be checked whether the refinement hierarchy can be exploited for the pattern network to improve the performance.
+However, a similar approach for the TGG part \cite{ExploitingTheModularityOfTGGs} has not shown significant performance improvements.
+
+\section{Shared Patterns with eMoflon::IBeX-TGG}
+\label{shared-patterns}
+In future, IBeX patterns should be shared with the TGG part of eMoflon::IBeX.
+The IBeX pattern model is designed such that this should be easily possible.
+Just for attributes the IBeX model cannot handle the complexity of attribute constraints necessary for eMoflon::IBeX-TGG such that a little extension of the IBeX model is required.
+Technically, the following steps are necessary to use the IBeX pattern model in the TGG part as well:
+\begin{itemize}
+	\item the extension of the IBeX pattern meta-model such that attribute constraints can be specified in the complexity necessary for TGG specifications (especially user-defined attribute constraints),
+	\item the transformation of the internal TGG model to the IBeX pattern model,\footnote{Alternatively a direct transformation from the editor TGG model to the IBeX pattern model could be implemented, but this would be a huge step, as the IBeX pattern model completely abstracts from TGGs.}
+	\item the adaption of the transformation from the IBeX pattern model to Democles patterns (and the initialization of the Democles patterns in the \texttt{DemoclesGTEngine}) to handle the additional attribute constraints (after that the transformation from \texttt{IBlackPattern}s to Democles patterns in the TGG part can be removed),
+	\item the removal of the pattern initialization in the \texttt{DemoclesTGGEngine} (because this can be inherited from the \texttt{DemoclesGTEngine} as soon as both engines are initialized with IBeX patterns),
+	\item and the adaptation of the green and red interpreter for TGGs (handling creation and deletion during rule applications), their interfaces, and the operational strategies using them.
+\end{itemize}
+
+\noindent
+Maybe the current \texttt{IbexGreenInterpreter} for TGGs can be even replaced with the \texttt{GraphTransformationCreateInterpreter}, if create patterns are generated in the IBeX pattern model.
+For the red interpreter an own implementation for the TGG part will remain necessary, as deletion for TGGs is undoing a previous rule application instead of applying the deletions specified by a delete pattern.
+
+\section{Applications using Graph Transformation and TGG}
+\label{applications-using-gt-and-tggs}
+Besides the integration of eMoflon::IBeX-GT and eMoflon::IBeX-TGG from the perspective of the eMoflon::IBeX development team, both parts can also be used together by end-users.
+An example is the usage of graph transformation for preprocessing a model synchronized with another model via a TGG.\footnote{The eMoflon::IBeX-TGG handbook \cite{eMoflonIBeX-TGG-Handbook} provides an example for GT as a preprocessor.}
+Currently this is possible, but requires some knowledge how the pattern matcher works.
+
+After eMoflon::IBeX has been migrated to the IBeX pattern model, it may be possible to use only one Democles engine instance in an application using a GT API and a TGG in order to save memory and sharing common patterns (\eg edge patterns).
+Currently the GT API and the operationalization for the TGG use two different engines.
+
+\section{Expressiveness of the Graph Transformation Rules}
+\label{expressiveness}
+The specification of attribute assignments and conditions is currently restricted to a subset of the theoretical possibilities.
+Regarding attributes, the reason is a lack of time during the implementation of this thesis.
+In the future it could be evaluated whether the implemented subset is satisfying for all use cases.
+However, the API allows to set arbitrary attribute values after rule applications (\eg via a subscription of rule applications with a \texttt{Consumer} calculating and setting the attribute value in self-written Java code).
+After eMoflon::IBeX-TGG has been refactored to use IBeX patterns as well, the IBeX model needs to support more complex attribute conditions.
+So just the editor and the transformation from editor patterns to IBeX patterns has to be extended.
+
+The support for complex graph conditions is restricted to expressions in DNF, which does not limit the expressiveness.
+In general, this can lead to longer logical expressions the user has to define.
+Technical limitations of the currently used pattern matching engine are the reason for this decision, as Democles cannot handle alternatives.
+As described in Section~\ref{disjunctions}, the matches for the alternatives are collected separately and merged by the interpreter.
+This approach ensures that as much as possible of the work is done by the pattern matcher, which ensures that invalid matches are filtered out in the first step already.
+In the case that support for alternatives is implemented in Democles, the implementation could be adjusted to check the alternatives directly in Democles which avoids combining and removing duplicates in the graph transformation interpreter.
+
+If it turns out that the restriction to expressions in DNF is disturbing of many users, one could allow arbitrary logical expressions in the editor and transform the expression into the DNF before the patterns are transformed.
+
+\section{Improvements to the Editor}
+\label{improvements-to-the-editor}
+The feedback of end-users pointed out that a link between editor patterns/rules and Java classes would be helpful (cp. Section~\ref{evaluation-java-integration}).
+A visualization is intentionally not editable according to our requirements list, as this requires a more complex implementation and the handling of the layout.
+Although some end-users have suggested an editable visual syntax, our initial consideration has not changed.
+
+Currently the syntax for the textual specification in the GT and TGG editor and the formatting algorithms are not completely consistent.
+This should be adjusted for full consistency between GT and TGG.

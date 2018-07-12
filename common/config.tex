@@ -1,0 +1,70 @@
+% !TeX spellcheck = en_US
+\def\Author{Patrick Robrecht}
+\def\ThesisType{Master's Thesis}
+\def\Title{Incremental Unidirectional Model Transformation via Graph Transformation with eMoflon::IBeX}
+\def\Keywords{graph transformation, graph transformation tool, eMoflon, model transformation, unidirectional model transformation, model modification}
+
+\def\Supervisor{Jun.-Prof. Dr. Anthony Anjorin}
+\def\SecondExaminer{Prof. Dr. Gregor Engels}
+\def\DateOfProposalSubmission{March 8, 2018}
+\def\DateOfThesisSubmission{July 12, 2018}
+
+\def\ResearchGroup{Database and Information Systems}
+\def\Address{Fürstenallee 11, 33102 Paderborn}
+
+% own commands
+\newcommand{\eg}{e.\,g. }
+\newcommand{\ie}{i.\,e. }
+\newcommand{\create}{{\color[rgb]{0,0.5,0} \texttt{++}}}
+\newcommand{\delete}{{\color[rgb]{1,0,0} \texttt{--}}}
+
+% common includes
+\usepackage{tikz}
+\usetikzlibrary{
+	arrows,
+	calc,
+	positioning
+}
+
+% (class diagrams)
+\usepackage{../../master-thesis-gt-tool/common/tikz-uml}
+\tikzset{
+	class/.style = {
+		inner sep = 0
+	}
+}
+\newcommand{\methodSep}{\\[-4px]}
+
+% tables
+\renewcommand{\arraystretch}{1.5}
+\usepackage{longtable} % allows to use footnotes in table
+\usepackage{booktabs}
+\usepackage{pifont}
+\newcommand{\yes}{{\color{green}$\checkmark$}}
+\newcommand{\no}{{\color{red}\text{\ding{55}}}}
+
+% listings
+\definecolor{commentcolor}{rgb}{0,0.4,0.2}
+\definecolor{keywordcolor}{rgb}{0.50,0.00,0.33}
+
+\usepackage{listings}
+\lstset{
+	aboveskip = 15pt,
+	basicstyle = \small\ttfamily,
+	breaklines = true,
+	captionpos = b,
+	commentstyle = \color{commentcolor},
+	emphstyle = \bfseries,
+	numbers = left,
+	numbersep = 10pt,
+	numberstyle = \scriptsize \color{gray},
+	keywordstyle = \color{keywordcolor},
+	language = Java,
+	tabsize = 4,
+	xleftmargin = 20pt,
+	frame = lrtb,
+	framexbottommargin = 5pt,
+	framexleftmargin = 20pt,
+	framexrightmargin = 5pt,
+	framextopmargin = 5pt
+}

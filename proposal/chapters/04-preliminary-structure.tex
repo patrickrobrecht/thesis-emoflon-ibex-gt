@@ -1,0 +1,54 @@
+% !TeX spellcheck = en_US
+\chapter{Preliminary Structure}
+\label{preliminary-structure}
+The structure of the thesis will be similar to the following outline:
+
+\renewcommand{\labelenumii}{\theenumii.}
+\renewcommand{\theenumii}{\theenumi.\arabic{enumii}}
+
+\renewcommand{\labelenumiii}{\theenumiii.}
+\renewcommand{\theenumiii}{\theenumii.\arabic{enumiii}}
+
+\begin{enumerate}
+	\item Introduction
+		\begin{enumerate}
+			\item Models and Model Transformations
+			\item Running Example
+			\item Contribution
+			\item Structure of the Paper
+		\end{enumerate}
+	\item Related Work
+		\begin{enumerate}
+			\item Features of Graph Transformation Tools
+			\item Comparison of Existing Graph Transformation Tools
+		\end{enumerate}
+	\item Fundamentals of Graph Transformation
+		\begin{enumerate}
+			\item Typed Graphs
+			\item Graph Conditions
+			\item Rule Application
+			\item Attributed Typed Graphs
+		\end{enumerate}
+	\item Graph Transformation with eMoflon::IBeX -- Concept and Implementation
+		\begin{enumerate}
+			\item eMoflon::IBeX
+			\item Transformation of Graph Transformation Rules into Pattern Networks
+				\begin{enumerate}
+					\item Nodes and References
+					\item Rule Refinement 
+					\item Attribute Conditions and Assignments
+					\item Graph Conditions
+				\end{enumerate}
+			\item Java API for Graph Transformations
+				\begin{enumerate}
+					\item Code Generation
+					\item Usage of the API
+				\end{enumerate}
+		\end{enumerate}
+	\item Evaluation
+		\begin{enumerate}
+			\item Correctness
+			\item Performance
+		\end{enumerate}
+	\item Conclusion and Future Work
+\end{enumerate}

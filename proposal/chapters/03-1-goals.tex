@@ -1,0 +1,61 @@
+% !TeX spellcheck = en_US
+\chapter{Goals}
+\label{goals}
+The main goal of the thesis is to implement a graph transformation tool with support for the features described in Section~\ref{requirements}.
+The most important objectives are the integration with a TGG tool based on incremental pattern matching and with a GPL (Java).
+
+\section{Research Questions}
+\label{research-questions}
+The enumeration below lists the research questions that will be investigated in the thesis.
+\begin{description}
+	\item[RQ 1]
+		Which tasks are best solved using an incremental pattern matcher?
+	\item[RQ 2]
+		How can a GT and TGG tool be seamlessly integrated for developers and end users?
+	\item[RQ 3]
+		How can we integrate graph transformations seamlessly into Java code using the power of Java 8 features such as streams\footnote{\url{http://www.oracle.com/technetwork/articles/java/ma14-java-se-8-streams-2177646.html}}?
+\end{description}
+
+\section{Tasks}
+\label{tasks}
+In this section we will give an overview over the tasks that need to be performed for the implementation.
+During the incremental implementation and testing process the following features shall be realized (ordered by importance):
+\begin{enumerate}
+	\item Simple constraints (just black nodes and references)
+	\item Creation and deletion of nodes and references (green and red elements)
+		\begin{enumerate}
+			\item Pushout semantics (SPO as default, DPO)
+			\item Parameters for context and deleted nodes
+		\end{enumerate}
+	\item Rule refinement (a rule may refine multiple rules)
+	\item Attribute conditions and assignments
+	\item Negative application conditions (or more complex graph conditions)
+\end{enumerate}
+The architecture of the planned graph transformation tool is illustrated in Figure \ref{fig:model-transformations}. 
+The green part is the Xtext\footnote{\url{https://www.eclipse.org/Xtext/}} based text editor for GT rules.
+The blue one deals with the internal representation of graph transformation rules and the pattern abstraction (independent from a concrete pattern matching engine),
+while the orange one is the integration into Democles as the current pattern matcher used by eMoflon::IBeX.
+If one wants to use eMoflon::IBeX with another pattern matching engine, just the orange part needs to be replaced with an implementation for the other engine.  
+
+\begin{figure}[h!]
+	\centering
+	\input{../common/tikz/architecture.tex}
+	\caption{Model transformations for eMoflon::IBeX-GT}
+	\label{fig:model-transformations}
+\end{figure}
+
+To implement the features listed above, the following steps have to be completed for each feature:
+\begin{enumerate}
+	\item Define a textual concrete syntax and provide an editor.
+	\item Provide a visualization of the editor model\footnote{\eg using PlantUML}.
+	\item Define/extend an internal GT meta-model.
+	\item Transform the editor model to an internal GT model.
+	\item Transform the internal GT model to an IBeX pattern.\footnote{The IBeX pattern shall abstract from GT such that it can be shared with the TGG part of eMoflon::IBeX.
+	In addition the IBeX pattern abstracts from different potential variants of converting a GT rule into patterns.}
+	\item Provide a graphical visualization of the IBeX pattern.
+	\item Transform the IBeX pattern to a Democles pattern.
+	\item Design/extend the Java API.
+	\item Write JUnit tests for the API using patterns/rules with the feature.
+	\item Write end-user documentation (\ie add a feature description and an example in the handbook).
+	\item Deploy the feature with the next eMoflon::IBeX version (for end-user testing).
+\end{enumerate}

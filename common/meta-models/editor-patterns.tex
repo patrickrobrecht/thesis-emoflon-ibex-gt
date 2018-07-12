@@ -1,0 +1,129 @@
+% !TeX encoding = UTF-8
+% !TeX spellcheck = en_US
+
+\begin{tikzpicture}
+	\umlsimpleclass[class]
+		{EditorPattern}
+
+	% classes for conditions
+	\umlsimpleclass[class,
+		below = 1.5cm of EditorPattern,
+		xshift = -2cm]
+		{EditorCondition}
+	\umlsimpleclass[class,
+		below = 1.5cm of EditorCondition]
+		{EditorSimpleCondition}
+	\umlsimpleclass[class,
+		below = 2.25cm of EditorSimpleCondition,
+		xshift = 2cm]
+		{EditorConditionReference}
+	\umlsimpleclass[class,
+		below = 1cm of EditorSimpleCondition,
+		xshift = -2cm]
+		{EditorApplicationCondition}
+
+	% classes node, attribute and reference
+	\umlsimpleclass[class,
+		below = 1.5cm of EditorPattern,
+		xshift = 4.25cm]
+		{EditorNode}
+	\umlsimpleclass[class,
+		below = 1.5cm of EditorNode,
+		xshift = -1.8cm]
+		{EditorAttribute}
+	\umlsimpleclass[class,
+		below = 1.5cm of EditorNode,
+		xshift = 1.8cm]
+		{EditorReference}
+
+	% EditorPattern
+	\umluniassoc[arg2 = {superPatterns},
+		mult2 = 0..*,
+		pos = 0.5,
+		angle1 = 90,
+		angle2 = 0,
+		loopsize = 2cm]
+		{EditorPattern}
+		{EditorPattern}
+	\umluniassoc[geometry=|-|,
+		arg2 = {conditions (OR)},
+		mult2 = 0..*,
+		pos2 = 2.5,
+		anchor1 = -130,
+		anchor2 = 90]
+		{EditorPattern}
+		{EditorCondition}
+	\umlunicompo[geometry = |-|,
+		arg2 = {nodes},
+		mult2 = 0..*,
+		pos = 2.5,
+		anchor1 = -50,
+		anchor2 = 90]
+		{EditorPattern}
+		{EditorNode}
+
+	% EditorNode
+	\umlunicompo[geometry = |-|,
+		arg2 = {attributes},
+		mult2 = 0..*,
+		pos = 2.5,
+		anchor1 = -130]
+		{EditorNode}
+		{EditorAttribute}
+	\umlunicompo[geometry = |-|,
+		arg2 = {references},
+		mult2 = 0..*,
+		pos = 2.5,
+		anchor1 = -50,
+		anchor2 = 90]
+		{EditorNode}
+		{EditorReference}
+
+	% EditorReference
+	\umluniassoc[geometry = -|-,
+		arg2 = {target},
+		mult2 = 1,
+		pos = 2.5,
+		anchor1 = 0,
+		anchor2 = 0,
+		arm1 = 0.5cm]
+		{EditorReference}
+		{EditorNode}
+
+	% EditorCondition
+	\umlunicompo[arg2 = {conditions (AND)},
+		mult2 = 1..*,
+		pos2 = 0.75]
+		{EditorCondition}
+		{EditorSimpleCondition}
+
+	% EditorConditionReference
+	\umlinherit[geometry = |-|,
+		anchor1 = 125,
+		anchor2 = -20]
+		{EditorConditionReference}
+		{EditorSimpleCondition}
+	\umluniassoc[geometry = |-|,
+		arm1 = 1.5cm,
+		arg2 = {condition},
+		mult2 = 1,
+		pos2 = 1.45,
+		anchor1 = 12,
+		anchor2 = -12]
+		{EditorConditionReference}
+		{EditorSimpleCondition}
+
+	% EditorApplicationCondition
+	\umlinherit[geometry = |-|,
+		anchor2 = -135]
+		{EditorApplicationCondition}
+		{EditorSimpleCondition}
+	\umluniassoc[geometry = |-,
+		arg2 = {pattern},
+		mult2 = 1,
+		pos = 1.5,
+		anchor1 = 170,
+		anchor2 = 180]
+		{EditorApplicationCondition}
+		{EditorPattern}
+\end{tikzpicture}

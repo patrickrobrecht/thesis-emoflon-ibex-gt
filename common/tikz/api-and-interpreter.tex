@@ -1,0 +1,69 @@
+% !TeX encoding = UTF-8
+% !TeX spellcheck = en_US
+
+\begin{tikzpicture} [
+		auto,
+		node distance = 4cm,
+		node/.style = {
+			rectangle,
+			rounded corners,
+			thick,
+			text width = 6em,
+			text centered,
+			minimum height = 3em
+		},
+		api/.style = {
+			node,
+			text width = 5em,
+			draw = purple
+		},
+		gt-interpreter/.style = {
+			node,
+			text width = 8em,
+			draw = olive
+		},
+		edge/.style = {
+			->,
+			thick
+		}
+	]
+
+	\node[api] (api) {
+		...API
+	};
+	\node[api, below of = api] (pattern) {
+		...Pattern \\
+		or ...Rule
+	};
+	\node[api, below of = pattern] (match) {
+		...Match
+	};
+
+	\node[gt-interpreter, right = 2.2cm of pattern] (interpreter) {
+		graph transformation interpreter
+	};
+
+	\node[node, draw = red, right = 2cm of interpreter] (delete-interpreter) {
+		delete interpreter
+	};
+	\node[node, draw = black, above of = delete-interpreter] (context-interpreter) {
+		pattern matcher
+	};
+	\node[node, draw = green, below of = delete-interpreter] (create-interpreter) {
+		create interpreter
+	};
+
+	\draw[edge] (api) -- node[left] {creates instances} (pattern);
+	\draw[edge] (pattern) -- node[left] {converts matches} (match);
+
+	\draw[edge] (pattern.60) -- ++(0,1.5) -- ++(4.55,0) node[above, pos = 0.5] {fetch matches}  -- (interpreter.100);
+	\draw[edge] (interpreter.130) -- ++(0,0.5) -- ++(-3.8,0) node[above, pos = 0.5] {filters \& returns matches} -- (pattern.40);
+	
+	\draw[edge] (pattern.300) -- ++(0,-1.5) -- ++(4.55,0) node[below, pos = 0.5] {subscribe matches} -- (interpreter.260);
+	\draw[edge] (interpreter.230) -- ++(0,-0.5) -- ++(-3.8,0) node[below, pos = 0.5] {notify of matches} -- (pattern.320);
+	
+	\draw[edge] (interpreter.40) -- ++(0,3.5) -- node[] {initializes} (context-interpreter.175);
+	\draw[edge] (context-interpreter.185) -- node[yshift = 0.2cm] {reports matches} (interpreter.30);
+	\draw[edge] (interpreter) -- node[text width = 1.5cm] {delegates deletion} (delete-interpreter);
+	\draw[edge] (interpreter) -- node[xshift = -0.2cm] {delegates creation} (create-interpreter.west);
+\end{tikzpicture}

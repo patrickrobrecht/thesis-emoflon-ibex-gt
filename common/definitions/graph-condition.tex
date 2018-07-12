@@ -1,0 +1,15 @@
+\begin{tikzpicture}[defpicture]
+	\node[def1] (L) {$L$};
+	\node[def1, right of = L] (P) {$P$};
+	\node[def1, right of = P] (C) {$C_i$};
+	\node[below of = L] (G) {$G$};
+
+	\begin{scope}[every path/.style = arrow]
+		\path[def1-arrow] (L) to node[def1, above] {$p$} (P);
+		\path[def1-arrow] (P) to node[def1] {$c_i$} (C);
+
+		\path (L) to node[left] {$m$} (G);
+		\path (P) to node {$m_p$} (G);
+		\path (C) to[bend left] node {$m_{c_i}$} (G);
+	\end{scope}
+\end{tikzpicture}

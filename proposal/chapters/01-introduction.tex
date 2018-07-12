@@ -1,0 +1,42 @@
+% !TeX spellcheck = en_US
+\chapter{Introduction}
+\label{introduction}
+
+\textit{Model-driven engineering} (MDE) is an approach in software development which focuses on the specification of software artifacts in the application domain.
+It raises the abstraction level from programming to domain-specific modeling languages by the use of \textit{models} for the representation of knowledge.
+The MDE approach aims for a simplification of the specification process and improvement of the communication between different people and teams working on a system (cf. \cite{MDEVoelter}, p. 13; \cite{HerringMernikWhenAndHowDevelopDSLs}).
+
+\textit{Model transformations} can be used to transform models into other models, \eg modifying an existing model or generating code from a model.
+Other application areas are web applications \cite{ModelTransformationsWithinWebApplications}, handling XML documents \cite{KurtevXMLApplicationsWithModelTransformations}, interface design and many others \cite{BxTransformationsCrossDisciplinePerspective}.
+Because of the focus on models as primary artifacts, model transformations are a fundamental part of MDE.
+
+\section{Graph Transformations}
+\label{graph-transformations}
+Since many models can be represented as a graph structure (\eg UML\footnote{cp. UML 2.5 \cite{UMLSpecification}, Annex E} or XML documents), \textit{graph transformations} (GT) are a frequently used formalism to implement model transformations.
+They consist of a set of \textit{graph transformation rules} of the form $L \rightarrow R$.
+The left-hand side $L$ called pattern graph specifies the context in which the rule may be applied to a given host graph, while the right-hand side $R$ defines the elements which the context is replaced with during rule application.\footnote{Formal foundations of algebraic graph transformation can be found in \cite{FundamentalsOfAlgebraicGT}.}
+
+Using this declarative approach for the specification of model transformation, a rule engine can be used to find a match in the host graph conforming to the pattern graph $L$, and apply the rule.
+
+\section{eMoflon::IBeX}
+The graph transformation tool we work with in this thesis is the Eclipse-based tool \textit{eMoflon}, which is currently being reimplemented in the \textit{eMoflon::IBeX} project\footnote{see \url{https://github.com/eMoflon/emoflon-ibex}}.
+Unlike the code generation based \textit{eMoflon::SDM/TiE}\footnote{see \url{https://github.com/eMoflon/emoflon-tool}. \\
+	eMoflon::SDM refers to the story driven modeling part (graph transformations and control flow) of the latest eMoflon release using Enterprise Architect and code generation. \\
+	eMoflon::TiE (Tool Integration Environment) allows to specify TGG rules in textual syntax. It relies on code generation and a transformation to SDMs.},
+eMoflon::IBeX uses an interpreter which is completely based on incremental pattern matching.
+
+eMoflon::TiE and eMoflon::IBeX provide a textual editor for transformation rules with syntax highlighting and checks for compliance to the meta-models specified in Ecore, the UML-like meta-model language of the \textit{Eclipse Modeling Framework} (EMF).
+A graphical visualization of specified rules generated from the textual syntax is provided for better understandability.
+
+While eMoflon::SDM/TiE supports both unidirectional graph transformations and bidirectional transformations between two different meta-models based on Triple Graph Grammars (TGG) as an underlying formalism, only the transformations with TGGs have been ported to eMoflon::IBeX.
+The goal of this thesis is to extend eMoflon::IBeX by unidirectional transformations modifying a model instance by applying transformation rules.
+
+\section{Structure of this Proposal}
+\label{structure}
+The remainder of this proposal is organized as follows.
+In Chapter~\ref{problem-and-contribution} we list our requirements for a graph transformation tool,
+discuss existing graph transformation tools and their drawbacks with respect to the requirements
+and explain the planned contribution.
+ 
+Chapter~\ref{goals} gives the research questions answered and the tasks performed in the master's thesis as well as the time plan for working on the thesis.
+At last, Chapter~\ref{preliminary-structure} presents the preliminary structure of the master's thesis.
